@@ -1,0 +1,187 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "Yet Another Node.js Blogg Application API",
+        "description": "Yet Another Node.js Blogg Application API",
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        }
+    },
+    "host": "localhost:3001",
+    "basePath": "/api",
+    "tags": [
+        {
+            "name": "Products",
+            "description": "API for products in the system"
+        }
+    ],
+    "schemes": [
+        "http"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/products?": {
+            "parameters": [
+                {
+                    "name": "page",
+                    "in": "query",
+                    "description": "Page number",
+                    "type": "integer",
+                    "required": false
+                }
+            ],
+            "get": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "Get product with given ID",
+                "responses": {
+                    "200": {
+                        "description": "Product is found",
+                        "schema": {
+                            "$ref": "#/definitions/Product"
+                        }
+                    }
+                }
+            }
+        },
+
+        "/products": {
+            "post": {
+                "tags": [
+                    "Products"
+                ],
+                "description": "Create new product in system",
+                "parameters": [
+                    {
+                        "name": "product",
+                        "in": "body",
+                        "description": "Product that we want to create",
+                        "schema": {
+                            "$ref": "#/definitions/Products"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "New product is created",
+                        "schema": {
+                            "$ref": "#/definitions/Products"
+                        }
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "Get all products in system",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Products"
+                        }
+                    }
+                }
+            }
+        },
+        "/products/{productId}": {
+            "parameters": [
+                {
+                    "name": "productId",
+                    "in": "path",
+                    "required": true,
+                    "description": "ID of product that we want to find",
+                    "type": "string"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "Get product with given ID",
+                "responses": {
+                    "200": {
+                        "description": "Product is found",
+                        "schema": {
+                            "$ref": "#/definitions/Product"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete product with given ID",
+                "tags": [
+                    "Products"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Product is deleted",
+                        "schema": {
+                            "$ref": "#/definitions/Product"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update product with give ID",
+                "tags": [
+                    "Products"
+                ],
+                "parameters": [
+                    {
+                        "name": "product",
+                        "in": "body",
+                        "description": "Product with new values of properties",
+                        "schema": {
+                            "$ref": "#/definitions/Product"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Product is updated",
+                        "schema": {
+                            "$ref": "#/definitions/Product"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Product": {
+            "required": [
+                "title",
+                "description",
+                "url"
+            ],
+            "properties": {
+                "title": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "url": {
+                    "type": "string"
+                }
+            }
+        },
+        "Products": {
+            "type": "array",
+            "$ref": "#/definitions/Product"
+        }
+    }
+}
